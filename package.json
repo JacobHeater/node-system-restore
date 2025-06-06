@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/JacobHeater/node-system-restore.git"
+    "url": "git+https://github.com/JacobHeater/node-system-restore.git"
   },
   "keywords": [
     "Node",
@@ -32,10 +32,10 @@
   ],
   "author": "Jacob Heater <jacobheater@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/JacobHeater/node-system-restore#readme",
   "bugs": {
-    "url": "https://gitlab.com/JacobHeater/node-system-restore/issues"
+    "url": "https://github.com/JacobHeater/node-system-restore/issues"
   },
-  "homepage": "https://gitlab.com/JacobHeater/node-system-restore#README",
   "main": "dist/index.js",
   "devDependencies": {
     "@eslint/js": "^9.28.0",
