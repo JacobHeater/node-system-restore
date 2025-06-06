@@ -16,8 +16,10 @@ export async function run() {
   const restorePointType: string = argv.restorePointType;
 
   if (await createRestorePoint(restorePointName, restorePointType)) {
+    console.log(`Restore point ${restorePointName} was successfully created.`);
     process.exit(0);
   } else {
+    console.log(`Failed to created restore point.`);
     process.exit(1);
   }
 }
@@ -35,9 +37,7 @@ export async function createRestorePoint(
   restorePointType: string,
 ): Promise<boolean> {
   try {
-    await callExe(restorePointName, restorePointType);
-
-    return true;
+    return await callExe(restorePointName, restorePointType);
   } catch {
     return false;
   }
@@ -50,15 +50,20 @@ export async function createRestorePoint(
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-async function callExe(restorePointName: string, restorePointType: string): Promise<void> {
+async function callExe(restorePointName: string, restorePointType: string): Promise<boolean> {
   const typeEnumValue = getRestorePointTypeValue(restorePointType);
 
   if (!typeEnumValue) {
     throw new Error(`Invalid restore point type: ${restorePointType}`);
   }
-  await execPromise(
-    `powershell.exe -Command "Checkpoint-Computer -Description \\"${restorePointName}\\" -RestorePointType \\"${typeEnumValue}\\""`,
-  );
+  try {
+    await execPromise(
+      `powershell.exe -Command "Checkpoint-Computer -Description \\"${restorePointName}\\" -RestorePointType \\"${typeEnumValue}\\""`,
+    );
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function execPromise(command: string) {
