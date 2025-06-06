@@ -54,30 +54,51 @@ async function callExe(restorePointName: string, restorePointType: string): Prom
   if (typeEnumValue === undefined) {
     throw new Error(`Invalid restore point type: ${restorePointType}`);
   }
+
   try {
     await spawnPromise('powershell.exe', [
       '-Command',
       `Checkpoint-Computer -Description "${restorePointName}" -RestorePointType ${typeEnumValue}`,
     ]);
     return true;
-  } catch {
+  } catch (error) {
+    console.error((error as Error).message);
     return false;
   }
 }
 
-function spawnPromise(command: string, args: string[] = []): Promise<void> {
+function spawnPromise(command: string, args: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
+    let stderrBuffer = '';
+    let stdoutBuffer = '';
+
     const child = spawn(command, args, {
-      stdio: 'inherit',
       shell: true,
     });
 
-    child.on('error', (err) => {
-      console.error(`Spawn error: ${err.message}`);
-      reject(err);
+    child.stdout.on('data', (data) => {
+      const text = data.toString();
+      stdoutBuffer += text;
+      process.stdout.write(text);
     });
 
-    child.on('exit', (code) => {
+    child.stderr.on('data', (data) => {
+      const text = data.toString();
+      stderrBuffer += text;
+      process.stderr.write(text);
+    });
+
+    child.on('error', reject);
+
+    child.on('close', (code) => {
+      const output = stdoutBuffer + stderrBuffer;
+      const warningPattern =
+        /A new system restore point cannot be created because one has already been created/i;
+
+      if (warningPattern.test(output)) {
+        return reject(new Error('Restore point creation rejected: 24-hour limit reached.'));
+      }
+
       if (code === 0) {
         resolve();
       } else {
