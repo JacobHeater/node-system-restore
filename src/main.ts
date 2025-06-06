@@ -4,7 +4,7 @@
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
 
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 import { argv } from './cli/argv';
 import { getRestorePointTypeValue } from './common/restore-point-type.js';
 /**
@@ -53,31 +53,38 @@ export async function createRestorePoint(
 async function callExe(restorePointName: string, restorePointType: string): Promise<boolean> {
   const typeEnumValue = getRestorePointTypeValue(restorePointType);
 
-  if (!typeEnumValue) {
+  if (typeEnumValue === undefined) {
     throw new Error(`Invalid restore point type: ${restorePointType}`);
   }
   try {
-    await execPromise(
-      `powershell.exe -Command "Checkpoint-Computer -Description \\"${restorePointName}\\" -RestorePointType \\"${typeEnumValue}\\""`,
-    );
+    await spawnPromise('powershell.exe', [
+      '-Command',
+      `Checkpoint-Computer -Description "${restorePointName}" -RestorePointType ${typeEnumValue}`,
+    ]);
     return true;
   } catch {
     return false;
   }
 }
 
-function execPromise(command: string) {
-  return new Promise<void>((resolve, reject) => {
-    exec(command, (error, _, stderr) => {
-      if (error) {
-        console.error(`Error: ${error.message}`);
-        return reject(error);
+function spawnPromise(command: string, args: string[] = []): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      stdio: 'inherit', // direct pass-through of stdio
+      shell: true, // allows shell syntax like redirection or chained commands
+    });
+
+    child.on('error', (err) => {
+      console.error(`Spawn error: ${err.message}`);
+      reject(err);
+    });
+
+    child.on('exit', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Process exited with code ${code}`));
       }
-      if (stderr) {
-        console.error(`Stderr: ${stderr}`);
-        return reject(stderr);
-      }
-      resolve();
     });
   });
 }
