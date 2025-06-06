@@ -3,9 +3,7 @@
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-
 import { Exception } from './exception.js';
-
 export class RestorePointTypeInvalidException extends Exception {
     /**
      * Initializes a new instance of the RestorePointTypeInvalidException.
@@ -20,3 +18,4 @@ export class RestorePointTypeInvalidException extends Exception {
         5. CANCELLED_OPERATION`);
     }
 }
+//# sourceMappingURL=restore-point-type-invalid-exception.js.map

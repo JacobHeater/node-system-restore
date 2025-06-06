@@ -4,45 +4,30 @@
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-
 import { StatusCode } from '../common/status-code.js';
-import { ArgumentNullException } from '../exceptions/argument-null-exception.js';
 import { Exception } from '../exceptions/exception.js';
-
 /**
  * ArgsRuleResult represents a result that is
  * returned after the rule validaion has completed.
  */
-export class ArgsRuleResult {
+export declare class ArgsRuleResult {
     /**
      * The status code that explains the result
      * of the rule validation.
      */
-    public statusCode: StatusCode;
-
+    statusCode: StatusCode;
     /**
      * In the event of an error during validation,
      * this error will be thrown.
      */
-    public error: Exception;
-
+    error: Exception;
     /**
      * Should the application error out when the
      * status code is anything but OK.
      */
-    public throwOnFailure: boolean = false;
-
+    throwOnFailure: boolean;
     /**
      * Initializes a new instance of the ArgsRuleResult class.
      */
-    constructor(statusCode: StatusCode, error: Exception) {
-        
-        if (!error) {
-            throw new ArgumentNullException('error');
-        }
-        
-        this.statusCode = statusCode;
-        this.error = error;
-    }
-
+    constructor(statusCode: StatusCode, error: Exception);
 }

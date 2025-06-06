@@ -3,12 +3,10 @@
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-
 import { ArgsRule } from '../cli/args-rule.js';
 import { ArgsRuleResult } from '../cli/args-rule-result.js';
 import { StatusCode } from '../common/status-code.js';
 import { RestorePointNameInvalidException } from '../exceptions/restore-point-name-invalid-exception.js';
-
 export class RestorePointNameRule extends ArgsRule {
     /**
      * Checks to see if the restorePointName parameter
@@ -16,20 +14,17 @@ export class RestorePointNameRule extends ArgsRule {
      *
      * @param argv The argv instance to check against.
      */
-    public validate(argv: any): ArgsRuleResult {
-        let isPresent: boolean = false;
-        let isValid: boolean = false;
-
+    validate(argv) {
+        let isPresent = false;
+        let isValid = false;
         if (argv.restorePointName) {
             isPresent = true;
         }
-
         if (typeof argv.restorePointName === 'string' && argv.restorePointName.length > 0) {
             isValid = true;
         }
-
-        const status: StatusCode = isPresent && isValid ? StatusCode.OK : StatusCode.ArgumentInvalid;
-
+        const status = isPresent && isValid ? StatusCode.OK : StatusCode.ArgumentInvalid;
         return new ArgsRuleResult(status, new RestorePointNameInvalidException());
     }
 }
+//# sourceMappingURL=restore-point-name-rule.js.map

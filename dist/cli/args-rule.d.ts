@@ -4,10 +4,8 @@
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-
 import { ArgsRuleResult } from './args-rule-result.js';
 import { IArgsRule } from './iargs-rule.js';
-
-export abstract class ArgsRule implements IArgsRule {
-    public abstract validate(argv: any): ArgsRuleResult;
+export declare abstract class ArgsRule implements IArgsRule {
+    abstract validate(argv: any): ArgsRuleResult;
 }

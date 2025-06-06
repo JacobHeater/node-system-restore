@@ -4,76 +4,66 @@
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-
 import yargs from 'yargs';
 import { KeyValuePair } from '../common/keyvaluepair.js';
 import { StatusCode } from '../common/status-code.js';
 import { Exception } from '../exceptions/exception.js';
-import { ArgsRuleResult } from './args-rule-result.js';
-import { IArgsParser } from './iargs-parser.js';
-import { IArgsRule } from './iargs-rule.js';
-
 /**
  * This class is responsible for parsing
  * the arguments given to the command line
  * as part of creating the system restore
  * point.
  */
-export class ArgsParser implements IArgsParser {
+export class ArgsParser {
     /**
      * The rules that tell the ArgsParser how validate
      * the arguments.
      */
-    public rules: IArgsRule[];
-
+    rules;
     /**
      *
      * @param rules Initializes a new instance of the
      *              ArgsParser class with the given rules.
      */
-    constructor(rules: IArgsRule[]) {
+    constructor(rules) {
         this.rules = rules;
     }
-
     /**
      * Validate that all of the arguments that
      * are expected are present in argv.
      */
-    public validateArgv(): StatusCode {
-        let status: StatusCode = StatusCode.OK;
-
+    validateArgv() {
+        let status = StatusCode.OK;
         if (this.rules && this.rules.length) {
             for (const rule of this.rules) {
-                const result: ArgsRuleResult = rule.validate(yargs().argv);
-
+                const result = rule.validate(yargs().argv);
                 if (result.statusCode !== StatusCode.OK) {
                     if (result.throwOnFailure) {
                         if (result.error) {
                             throw result.error;
-                        } else {
+                        }
+                        else {
                             throw new Exception('Invalid argument present.');
                         }
-                    } else if (result.error) {
+                    }
+                    else if (result.error) {
                         console.log(`- ${result.error.message}`);
                         console.log('');
                     }
-                    
                     status = StatusCode.ArgvInvalid;
                 }
             }
         }
-
         return status;
     }
-
     /**
      * Returns the parameter name and value.
-     * 
+     *
      * @param name The name to lookup.
      */
-    public getParam(name: string) : KeyValuePair<string, string> {
-        
-        const argv = yargs().argv as { [key: string]: unknown };
-        return new KeyValuePair<string, string>(name, argv[name] as string);
+    getParam(name) {
+        const argv = yargs().argv;
+        return new KeyValuePair(name, argv[name]);
     }
 }
+//# sourceMappingURL=args-parser.js.map
