@@ -5,5 +5,5 @@
  */
 import { ArgsRuleResult } from './args-rule-result.js';
 export interface IArgsRule {
-    validate(argv: any): ArgsRuleResult;
+  validate(argv: Record<string, unknown>): ArgsRuleResult;
 }

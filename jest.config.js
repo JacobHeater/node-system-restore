@@ -3,20 +3,11 @@ export default {
   testEnvironment: 'node',
   roots: ['<rootDir>/src', '<rootDir>/__spec__'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { useESM: true }]
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
   },
   extensionsToTreatAsEsm: ['.ts'],
-  moduleFileExtensions: [
-    'ts',
-    'js',
-    'json'
-  ],
-  testMatch: [
-    '**/__spec__/**/*.(test|spec).(ts|js)'
-  ],
+  moduleFileExtensions: ['ts', 'js', 'json'],
+  testMatch: ['**/__spec__/**/*.(test|spec).(ts|js)'],
   coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'src/**/*.{ts,js}',
-    '!src/**/*.d.ts'
-  ]
+  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/*.d.ts'],
 };

@@ -7,7 +7,7 @@ import { KeyValuePair } from '../common/keyvaluepair.js';
 import { StatusCode } from '../common/status-code.js';
 import { IArgsRule } from './iargs-rule.js';
 export interface IArgsParser {
-    rules: IArgsRule[];
-    validateArgv(): StatusCode;
-    getParam(name: string): KeyValuePair<string, string>;
+  rules: IArgsRule[];
+  validateArgv(): StatusCode;
+  getParam(name: string): KeyValuePair<string, string>;
 }

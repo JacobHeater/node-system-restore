@@ -6,9 +6,9 @@
 import { ArgsRule } from '../cli/args-rule.js';
 import { ArgsRuleResult } from '../cli/args-rule-result.js';
 export declare class RestorePointTypeRule extends ArgsRule {
-    /**
-     * Validates that the --restorePointType parameter is present
-     * and has a valid value.
-     */
-    validate(argv: any): ArgsRuleResult;
+  /**
+   * Validates that the --restorePointType parameter is present
+   * and has a valid value.
+   */
+  validate(argv: Record<string, unknown>): ArgsRuleResult;
 }

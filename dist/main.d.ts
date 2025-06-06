@@ -7,7 +7,7 @@
  * This function is to be used by the command line
  * executable.
  */
-export declare function run(): void;
+export declare function run(): Promise<void>;
 /**
  * This function is to be used by modules that want
  * to directly import the capabilities to create a
@@ -16,4 +16,7 @@ export declare function run(): void;
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-export declare function createRestorePoint(restorePointName: string, restorePointType: string): boolean;
+export declare function createRestorePoint(
+  restorePointName: string,
+  restorePointType: string,
+): Promise<boolean>;

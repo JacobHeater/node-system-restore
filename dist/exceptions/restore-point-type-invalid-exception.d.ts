@@ -5,8 +5,8 @@
  */
 import { Exception } from './exception.js';
 export declare class RestorePointTypeInvalidException extends Exception {
-    /**
-     * Initializes a new instance of the RestorePointTypeInvalidException.
-     */
-    constructor();
+  /**
+   * Initializes a new instance of the RestorePointTypeInvalidException.
+   */
+  constructor();
 }

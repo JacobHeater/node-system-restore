@@ -5,9 +5,9 @@
  */
 import { Exception } from './exception.js';
 export declare class ArgumentNullException extends Exception {
-    /**
-     * Initializes a new instance of the ArgumentNullException
-     * class.
-     */
-    constructor(argumentName: string);
+  /**
+   * Initializes a new instance of the ArgumentNullException
+   * class.
+   */
+  constructor(argumentName: string);
 }

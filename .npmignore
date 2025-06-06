@@ -1,3 +1,10 @@
-build-scripts/
-pkg/
-!bin/
+src/
+.editorconfig
+.eslintrc.json
+.gitignore
+.npmignore
+.prettierrc
+eslint.config.mjs
+jest.config.js
+tsconfig.json
+tsconfig.release.json

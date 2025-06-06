@@ -7,11 +7,11 @@
 import { Exception } from './exception.js';
 
 export class ArgumentNullException extends Exception {
-    /**
-     * Initializes a new instance of the ArgumentNullException
-     * class.
-     */
-    constructor(argumentName: string) {
-        super(`Argument '${argumentName}' cannot be null.`);
-    }
+  /**
+   * Initializes a new instance of the ArgumentNullException
+   * class.
+   */
+  constructor(argumentName: string) {
+    super(`Argument '${argumentName}' cannot be null.`);
+  }
 }

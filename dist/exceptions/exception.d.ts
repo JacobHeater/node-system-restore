@@ -5,11 +5,11 @@
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
 export declare class Exception extends Error {
-    /**
-     * Initializes a new instance of the Exception class
-     * with the given message.
-     *
-     * @param message The message to display for the exception.
-     */
-    constructor(message: string);
+  /**
+   * Initializes a new instance of the Exception class
+   * with the given message.
+   *
+   * @param message The message to display for the exception.
+   */
+  constructor(message: string);
 }

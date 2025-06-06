@@ -7,14 +7,13 @@
 import { Exception } from './exception.js';
 
 export class RestorePointNameInvalidException extends Exception {
-
-    /**
-     * Initializes a new instance of the RestorePointNameInvalidException
-     * class.
-     */
-    constructor() {
-        super(
-            'Parameter --restorePointName is invalid. The paremter value must be a string greater than 0 characters in length.',
-        );
-    }
+  /**
+   * Initializes a new instance of the RestorePointNameInvalidException
+   * class.
+   */
+  constructor() {
+    super(
+      'Parameter --restorePointName is invalid. The paremter value must be a string greater than 0 characters in length.',
+    );
+  }
 }

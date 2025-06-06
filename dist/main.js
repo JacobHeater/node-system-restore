@@ -1,39 +1,27 @@
+'use strict';
 /**
  * @file system-restore entry point.
  * @since 09/01/2018
  * @copyright Jacob Heater <jacobheater@gmail.com>
  */
-import { execFileSync } from 'child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs-extra';
-import { join, resolve } from 'path';
-import { ArgsParser } from './cli/args-parser.js';
-import { StatusCode } from './common/status-code.js';
-import { RestorePointNameRule } from './rules/restore-point-name-rule.js';
-import { RestorePointTypeRule } from './rules/restore-point-type-rule.js';
-let entryPoint = '';
+Object.defineProperty(exports, '__esModule', { value: true });
+exports.run = run;
+exports.createRestorePoint = createRestorePoint;
+const child_process_1 = require('child_process');
+const argv_1 = require('./cli/argv');
+const restore_point_type_js_1 = require('./common/restore-point-type.js');
 /**
  * This function is to be used by the command line
  * executable.
  */
-export function run() {
-    entryPoint = 'run';
-    const parser = new ArgsParser([
-        new RestorePointNameRule(),
-        new RestorePointTypeRule(),
-    ]);
-    const status = parser.validateArgv();
-    if (status !== StatusCode.OK) {
-        process.exit(status);
-    }
-    // Everything is good if we're here.
-    const restorePointName = parser.getParam('restorePointName').value;
-    const restorePointType = parser.getParam('restorePointType').value;
-    if (createRestorePoint(restorePointName, restorePointType)) {
-        process.exit(0);
-    }
-    else {
-        process.exit(1);
-    }
+async function run() {
+  const restorePointName = argv_1.argv.restorePointName;
+  const restorePointType = argv_1.argv.restorePointType;
+  if (await createRestorePoint(restorePointName, restorePointType)) {
+    process.exit(0);
+  } else {
+    process.exit(1);
+  }
 }
 /**
  * This function is to be used by modules that want
@@ -43,15 +31,13 @@ export function run() {
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-export function createRestorePoint(restorePointName, restorePointType) {
-    entryPoint = 'commonjs';
-    try {
-        callExe(restorePointName, restorePointType);
-        return true;
-    }
-    catch (ex) {
-        return false;
-    }
+async function createRestorePoint(restorePointName, restorePointType) {
+  try {
+    await callExe(restorePointName, restorePointType);
+    return true;
+  } catch {
+    return false;
+  }
 }
 /**
  * A private function for calling out the executable to create
@@ -60,27 +46,28 @@ export function createRestorePoint(restorePointName, restorePointType) {
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-function callExe(restorePointName, restorePointType) {
-    const workingDir = process.cwd();
-    const winRestoratorDirName = 'WinRestorator';
-    const winRestoratorExeName = `${winRestoratorDirName}.exe`;
-    let exePath = join(workingDir, winRestoratorDirName, winRestoratorExeName);
-    if (entryPoint === 'run' && !existsSync(exePath)) {
-        mkdirSync(join(workingDir, winRestoratorDirName));
-        writeFileSync(exePath, readFileSync(`./exe/${winRestoratorExeName}`));
-    }
-    else {
-        exePath = resolve(__dirname, '../../', 'exe', winRestoratorExeName);
-    }
-    try {
-        execFileSync(exePath, [
-            `--restorePointName=${restorePointName}`,
-            `--restorePointType=${restorePointType}`,
-        ]);
-    }
-    catch (err) {
-        console.log('Error running WinRestorator.exe');
-        process.exit(1);
-    }
+async function callExe(restorePointName, restorePointType) {
+  const typeEnumValue = (0, restore_point_type_js_1.getRestorePointTypeValue)(restorePointType);
+  if (!typeEnumValue) {
+    throw new Error(`Invalid restore point type: ${restorePointType}`);
+  }
+  await execPromise(
+    `powershell.exe -Command "Checkpoint-Computer -Description \\"${restorePointName}\\" -RestorePointType \\"${typeEnumValue}\\""`,
+  );
+}
+function execPromise(command) {
+  return new Promise((resolve, reject) => {
+    (0, child_process_1.exec)(command, (error, _, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return reject(error);
+      }
+      if (stderr) {
+        console.error(`Stderr: ${stderr}`);
+        return reject(stderr);
+      }
+      resolve();
+    });
+  });
 }
 //# sourceMappingURL=main.js.map

@@ -20,8 +20,5 @@
     "useUnknownInCatchVariables": true,
     "incremental": true
   },
-  "include": [
-    "src/**/*",
-    "__spec__/**/*"
-  ]
+  "include": ["src/**/*", "__spec__/**/*"]
 }

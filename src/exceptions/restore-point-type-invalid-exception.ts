@@ -5,18 +5,22 @@
  */
 
 import { Exception } from './exception.js';
+import { RestorePointType } from '../common/restore-point-type.js';
+
+function getValidRestorePointTypes(): string {
+  return Object.keys(RestorePointType)
+    .filter((key) => isNaN(Number(key)))
+    .map((key, idx) => `    ${idx + 1} = ${key as string}`)
+    .join('\n');
+}
 
 export class RestorePointTypeInvalidException extends Exception {
-    /**
-     * Initializes a new instance of the RestorePointTypeInvalidException.
-     */
-    constructor() {
-        super(`Parameter --restorePointType is invalid. You may only use one of these values:
-        
-        1. APPLICATION_INSTALL
-        2. APPLICATION_UNINSTALL
-        3. DEVICE_DRIVER_INSTALL
-        4. MODIFY_SETTINGS
-        5. CANCELLED_OPERATION`);
-    }
+  /**
+   * Initializes a new instance of the RestorePointTypeInvalidException.
+   */
+  constructor() {
+    super(
+      `Parameter --restorePointType is invalid. You may only use one of these values:\n\n${getValidRestorePointTypes()}`,
+    );
+  }
 }

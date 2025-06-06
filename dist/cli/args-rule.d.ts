@@ -7,5 +7,5 @@
 import { ArgsRuleResult } from './args-rule-result.js';
 import { IArgsRule } from './iargs-rule.js';
 export declare abstract class ArgsRule implements IArgsRule {
-    abstract validate(argv: any): ArgsRuleResult;
+  abstract validate(argv: Record<string, unknown>): ArgsRuleResult;
 }

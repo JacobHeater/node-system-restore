@@ -11,23 +11,23 @@ import { Exception } from '../exceptions/exception.js';
  * returned after the rule validaion has completed.
  */
 export declare class ArgsRuleResult {
-    /**
-     * The status code that explains the result
-     * of the rule validation.
-     */
-    statusCode: StatusCode;
-    /**
-     * In the event of an error during validation,
-     * this error will be thrown.
-     */
-    error: Exception;
-    /**
-     * Should the application error out when the
-     * status code is anything but OK.
-     */
-    throwOnFailure: boolean;
-    /**
-     * Initializes a new instance of the ArgsRuleResult class.
-     */
-    constructor(statusCode: StatusCode, error: Exception);
+  /**
+   * The status code that explains the result
+   * of the rule validation.
+   */
+  statusCode: StatusCode;
+  /**
+   * In the event of an error during validation,
+   * this error will be thrown.
+   */
+  error: Exception;
+  /**
+   * Should the application error out when the
+   * status code is anything but OK.
+   */
+  throwOnFailure: boolean;
+  /**
+   * Initializes a new instance of the ArgsRuleResult class.
+   */
+  constructor(statusCode: StatusCode, error: Exception);
 }

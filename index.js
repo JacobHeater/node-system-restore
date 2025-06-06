@@ -1,5 +1,9 @@
-const main = require('./bin/src/main');
+#!/usr/bin/env node
 
-module.exports = {
-  createRestorePoint: main.createRestorePoint
-};
+const { createRestorePoint, run } = require('./dist/main.js');
+
+module.exports = { createRestorePoint };
+
+if (require.main === module) {
+  run();
+}

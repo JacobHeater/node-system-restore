@@ -1,19 +1,16 @@
 {
   "root": true,
   "env": {
-    "es2022": true,
     "node": true,
+    "es2022": true,
     "jest": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
+    "project": ["./tsconfig.json", "./tsconfig.release.json"],
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "import"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -22,14 +19,22 @@
     "prettier"
   ],
   "rules": {
-    "no-console": "off",
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-        "newlines-between": "always"
+    "import/no-unresolved": "error",
+    "import/order": "warn",
+    "import/no-duplicates": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": ["./tsconfig.json", "./tsconfig.release.json"],
+        "extensions": [".js", ".ts", ".d.ts"]
+      },
+      "node": {
+        "extensions": [".js", ".ts", ".d.ts"]
       }
-    ]
+    }
   }
 }

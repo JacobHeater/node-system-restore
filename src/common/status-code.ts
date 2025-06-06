@@ -6,8 +6,8 @@
  */
 
 export enum StatusCode {
-    OK = 0,
-    Error = 1,
-    ArgumentInvalid = 2,
-    ArgvInvalid = 3
+  OK = 0,
+  Error = 1,
+  ArgumentInvalid = 2,
+  ArgvInvalid = 3,
 }

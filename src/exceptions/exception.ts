@@ -6,13 +6,13 @@
  */
 
 export class Exception extends Error {
-    /**
-     * Initializes a new instance of the Exception class
-     * with the given message.
-     *
-     * @param message The message to display for the exception.
-     */
-    constructor(message: string) {
-        super(message);
-    }
+  /**
+   * Initializes a new instance of the Exception class
+   * with the given message.
+   *
+   * @param message The message to display for the exception.
+   */
+  constructor(message: string) {
+    super(message);
+  }
 }

@@ -15,26 +15,26 @@ import { IArgsRule } from './iargs-rule.js';
  * point.
  */
 export declare class ArgsParser implements IArgsParser {
-    /**
-     * The rules that tell the ArgsParser how validate
-     * the arguments.
-     */
-    rules: IArgsRule[];
-    /**
-     *
-     * @param rules Initializes a new instance of the
-     *              ArgsParser class with the given rules.
-     */
-    constructor(rules: IArgsRule[]);
-    /**
-     * Validate that all of the arguments that
-     * are expected are present in argv.
-     */
-    validateArgv(): StatusCode;
-    /**
-     * Returns the parameter name and value.
-     *
-     * @param name The name to lookup.
-     */
-    getParam(name: string): KeyValuePair<string, string>;
+  /**
+   * The rules that tell the ArgsParser how validate
+   * the arguments.
+   */
+  rules: IArgsRule[];
+  /**
+   *
+   * @param rules Initializes a new instance of the
+   *              ArgsParser class with the given rules.
+   */
+  constructor(rules: IArgsRule[]);
+  /**
+   * Validate that all of the arguments that
+   * are expected are present in argv.
+   */
+  validateArgv(): StatusCode;
+  /**
+   * Returns the parameter name and value.
+   *
+   * @param name The name to lookup.
+   */
+  getParam(name: string): KeyValuePair<string, string>;
 }
