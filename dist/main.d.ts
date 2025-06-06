@@ -16,7 +16,4 @@ export declare function run(): Promise<void>;
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-export declare function createRestorePoint(
-  restorePointName: string,
-  restorePointType: string,
-): Promise<boolean>;
+export declare function createRestorePoint(restorePointName: string, restorePointType: string): Promise<boolean>;
