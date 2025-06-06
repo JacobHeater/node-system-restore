@@ -1,6 +1,6 @@
 {
   "name": "system-restore",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create Windows System Restore Points using NodeJS.",
   "type": "commonjs",
   "engines": {
