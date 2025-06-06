@@ -1,0 +1,58 @@
+{
+  "name": "system-restore",
+  "version": "1.0.4",
+  "description": "Create Windows System Restore Points using NodeJS.",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "scripts": {
+    "clean": "rimraf coverage/* bin/* tmp/* pkg/*",
+    "build": "tsc -p tsconfig.release.json",
+    "watch": "tsc -w -p tsconfig.release.json",
+    "lint": "tslint -t stylish --project \"tsconfig.json\"",
+    "pretest": "npm run lint",
+    "test": "npm run test-only",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch",
+    "package": "node ./build-scripts/package.js",
+    "build-n-package": "npm run build && npm run package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/JacobHeater/node-system-restore.git"
+  },
+  "keywords": [
+    "Node",
+    "Windows",
+    "System Restore",
+    "Restore Point"
+  ],
+  "author": "Jacob Heater <jacobheater@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/JacobHeater/node-system-restore/issues"
+  },
+  "homepage": "https://gitlab.com/JacobHeater/node-system-restore#README",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/jest": "^23.3.1",
+    "@types/node": "^8.10.29",
+    "jest": "^23.5.0",
+    "nexe": "^2.0.0-rc.34",
+    "prettier": "^1.14.2",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.1.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
+    "tslint-microsoft-contrib": "^5.2.1",
+    "tsutils": "^3.0.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "tslib": "^1.9.3",
+    "yargs": "^12.0.1"
+  }
+}
