@@ -16,10 +16,8 @@ export async function run() {
   const restorePointType: string = argv.restorePointType;
 
   if (await createRestorePoint(restorePointName, restorePointType)) {
-    console.log(`Restore point ${restorePointName} was successfully created.`);
     process.exit(0);
   } else {
-    console.log(`Failed to created restore point.`);
     process.exit(1);
   }
 }
@@ -70,8 +68,8 @@ async function callExe(restorePointName: string, restorePointType: string): Prom
 function spawnPromise(command: string, args: string[] = []): Promise<void> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
-      stdio: 'inherit', // direct pass-through of stdio
-      shell: true, // allows shell syntax like redirection or chained commands
+      stdio: 'inherit',
+      shell: true,
     });
 
     child.on('error', (err) => {
