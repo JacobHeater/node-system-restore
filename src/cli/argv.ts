@@ -15,6 +15,6 @@ ${getRestorePointTypeKeyValuePairs()}
 program
   .requiredOption('-n --restorePointName <name>', 'The name for your restore point.')
   .requiredOption('-t --restorePointType <type>', 'The restor point type.')
-  .helpOption('-h --h', helpMessage);
+  .helpOption('-h --help', helpMessage);
 
 export const argv = program.parse().opts();
