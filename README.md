@@ -53,7 +53,7 @@ const { createRestorePoint } = require('system-restore');
  * @param restorePointName The name of the restore point.
  * @param restorePointType The type of restore point to create.
  */
-createRestorePoint(restorePointName: string, restorePointType: string): boolean
+createRestorePoint(restorePointName: string, restorePointType: string): Promise<boolean>
 ```
 
 ### Values for Restore Point Type

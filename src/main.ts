@@ -7,6 +7,7 @@
 import { spawn } from 'child_process';
 import { argv } from './cli/argv';
 import { getRestorePointTypeValue } from './common/restore-point-type.js';
+
 /**
  * This function is to be used by the command line
  * executable.
@@ -35,7 +36,7 @@ export async function createRestorePoint(
   restorePointType: string,
 ): Promise<boolean> {
   try {
-    return await callExe(restorePointName, restorePointType);
+    return await callPowerShell(restorePointName, restorePointType);
   } catch {
     return false;
   }
@@ -48,7 +49,7 @@ export async function createRestorePoint(
  * @param restorePointName The name of the restore point to create.
  * @param restorePointType The type of restore point to create.
  */
-async function callExe(restorePointName: string, restorePointType: string): Promise<boolean> {
+async function callPowerShell(restorePointName: string, restorePointType: string): Promise<boolean> {
   const typeEnumValue = getRestorePointTypeValue(restorePointType);
 
   if (typeEnumValue === undefined) {
